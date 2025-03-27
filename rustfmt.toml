@@ -1,0 +1,8 @@
+# empty for default options
+
+# my preferred options, but some of these require nightly
+# imports_layout = "HorizontalVertical"
+# newline_style = "Unix"
+# imports_granularity = "One"
+# reorder_impl_items = true
+# reorder_imports = true

@@ -1,0 +1,12 @@
+[package]
+edition = "2024"
+name = "xtask"
+version = "0.0.0"
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+xshell = { workspace = true }
+
+[lints]
+workspace = true

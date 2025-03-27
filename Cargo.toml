@@ -1,0 +1,26 @@
+[workspace]
+members = ["crates/bins/*", "crates/dev/*", "crates/libs/*"]
+resolver = "2"
+
+[workspace.dependencies]
+# Local libraries
+demo-lib = { path = "./crates/libs/demo-lib", version = "0.0.0" }
+
+# External libraries
+anyhow = "1.0.97"
+clap = { version = "4.5.34", features = ["derive"] }
+rand = "0.8.5"
+xshell = "0.2.7"
+
+[workspace.lints]
+[workspace.lints.clippy]
+# pedantic group
+pedantic = { level = "deny", priority = -1 }
+
+# suspicious group
+duplicated_attributes = "allow"
+
+# restriction group
+allow_attributes = "deny"
+allow_attributes_without_reason = "deny"
+unwrap_used = "deny"
