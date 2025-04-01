@@ -16,7 +16,10 @@ jobs:
           ~/.cargo/git/db/
           target/
           .deps/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+        key: ${{ runner.os }}-cargo-${{hashFiles(
+          'Cargo.lock',
+          'crates/dev/xtask/src/tools.rs',
+          ) }}
 
     - run: pwd
     - run: ls -la
