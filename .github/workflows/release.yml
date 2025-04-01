@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: Create release
       env:
-        GITHUB_TOKE: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.ref_name }}
       run: |
         gh release create "$tag" \
