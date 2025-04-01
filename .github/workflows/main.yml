@@ -8,4 +8,5 @@ jobs:
     - uses: actions/checkout@v4
     - run: rustup update
     - run: cargo --version
+    - run: cargo x install-dev-tools
     - run: cargo x check
