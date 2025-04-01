@@ -69,12 +69,24 @@ Runs our configured autoformatters.
 # Explanation of lint levels
 TODO: Write longer explanation about why certain lint levels were chosen.
 
+# Github Actions
+There are two workflows for Github actions present.
+
+First, is the CI checks that run on PRs.
+See `.github/workflows/main.yml` for more info.
+This workflow is probably useful as-is.
+It could be enabled `on: push` so that all pushed commits are checked,
+but that will depend on the frequency of pushed commits and how long checks take.
+Dependencies are cached so checks typically run pretty quickly.
+
+Second, when any tag beginning with a `v`, such as `v1.2.3`, is pushed, a release is created.
+This workflow almost definitely will need to be customized on a per-project basis.
+Every project has different...
+- Definitions of output files and how they should be grouped
+- Factors that should trigger releases
+- Requirements for the build host(s) and build target(s)
+
 # TODO
-- Explore github actions for:
-    - Testing
-    - Release packages
 - Explore additional cargo plugins for:
     - Unused dependencies (`cargo-udeps`)
     - Validating dependency licences (`cargo-deny`)
-
-test: update something to re-run CI
