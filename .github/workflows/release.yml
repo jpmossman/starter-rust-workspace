@@ -11,6 +11,31 @@ jobs:
     name: Release pushed tag
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+          .deps/
+        key: ${{ runner.os }}-cargo-${{hashFiles(
+          'Cargo.lock',
+          'crates/dev/xtask/src/tools.rs'
+          ) }}
+
+    - name: Build
+      run: |
+        rustup update
+        cargo --version
+        cargo x install-dev-tools
+        cargo x dist
+
     - name: Create release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -19,4 +44,5 @@ jobs:
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
           --title="${tag#v}" \
-          --generate-notes
+          --generate-notes \
+          ./dist/*.tgz
