@@ -44,7 +44,6 @@ fn main() -> anyhow::Result<()> {
         SubCommands::Fmt => {
             println!("Formatting code...");
             let sh = new_shell()?;
-            // cmd!(sh, "cargo +nightly fmt").run()?;
             cmd!(sh, "cargo fmt").run()?;
             cmd!(sh, "taplo fmt").run()?;
             Ok(())
@@ -66,7 +65,6 @@ fn main() -> anyhow::Result<()> {
 fn checks() -> anyhow::Result<()> {
     let sh = new_shell()?;
     println!("Checking format...");
-    // cmd!(sh, "cargo +nightly fmt --check").run()?;
     cmd!(sh, "cargo fmt --check").run()?;
     cmd!(sh, "taplo fmt --check").run()?;
     println!("Checking lints...");
