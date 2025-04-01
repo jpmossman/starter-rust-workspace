@@ -13,6 +13,9 @@ struct Args {
 
 #[derive(Subcommand, Debug, Clone)]
 enum SubCommands {
+    /// Create `dist` directory containing release files
+    Dist,
+
     /// Run checks for CI. Checks formatting, lints, and unit tests, in that order
     Check,
 
@@ -33,6 +36,9 @@ enum SubCommands {
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     match args.command {
+        SubCommands::Dist => {
+            make_dist()
+        }
         SubCommands::Check => {
             println!("CI Checks");
             checks().map_err(|_| anyhow::anyhow!("Checks failed! Please fix before committing"))
@@ -103,4 +109,31 @@ fn new_shell() -> anyhow::Result<Shell> {
     sh.set_var("PATH", new_path);
 
     Ok(sh)
+}
+
+fn make_dist() -> anyhow::Result<()> {
+    let sh = new_shell()?;
+
+    let targets = [
+        "x86_64-unknown-linux-gnu",
+    ];
+    let bins = [
+        "demo-bin",
+    ];
+
+    sh.remove_path("./dist")?;
+    sh.create_dir("./dist")?;
+
+    for target in targets {
+        let dist_dir = sh.create_dir(format!("dist/{target}/"))?;
+        cmd!(sh, "cargo build --release --target {target}").run()?;
+        for bin in bins {
+            sh.copy_file(format!("target/{target}/release/{bin}"), &dist_dir)?;
+            cmd!(sh, "tar -czf dist/{target}.tgz dist/{target}/{bin}").run()?;
+        }
+        cmd!(sh, "tar -czf dist/{target}.tgz -C dist/{target} .").run()?;
+    }
+
+
+    Ok(())
 }
