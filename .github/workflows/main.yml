@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - run: ls -la ~/.cargo/bin/
-    - run: ls -la .deps/
+    - run: ls -la target/
     # - run: rustup update
     # - run: cargo --version
     # - run: cargo x install-dev-tools
