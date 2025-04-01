@@ -21,15 +21,7 @@ jobs:
           'crates/dev/xtask/src/tools.rs'
           ) }}
 
-    - run: pwd
-    - run: ls -la
-    - run: ls -la ~/.cargo/bin/
-    - run: mkdir -p .deps/
-    - run: ls -la .deps/
-    - run: touch .deps/test.txt
-    - run: ls -la ./.deps/
-    - run: echo ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-    # - run: rustup update
-    # - run: cargo --version
-    # - run: cargo x install-dev-tools
-    # - run: cargo x check
+    - run: rustup update
+    - run: cargo --version
+    - run: cargo x install-dev-tools
+    - run: cargo x check
