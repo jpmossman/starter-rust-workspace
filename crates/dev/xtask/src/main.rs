@@ -36,9 +36,7 @@ enum SubCommands {
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     match args.command {
-        SubCommands::Dist => {
-            make_dist()
-        }
+        SubCommands::Dist => make_dist(),
         SubCommands::Check => {
             println!("CI Checks");
             checks().map_err(|_| anyhow::anyhow!("Checks failed! Please fix before committing"))
@@ -114,12 +112,8 @@ fn new_shell() -> anyhow::Result<Shell> {
 fn make_dist() -> anyhow::Result<()> {
     let sh = new_shell()?;
 
-    let targets = [
-        "x86_64-unknown-linux-gnu",
-    ];
-    let bins = [
-        "demo-bin",
-    ];
+    let targets = ["x86_64-unknown-linux-gnu"];
+    let bins = ["demo-bin"];
 
     sh.remove_path("./dist")?;
     sh.create_dir("./dist")?;
@@ -133,7 +127,6 @@ fn make_dist() -> anyhow::Result<()> {
         }
         cmd!(sh, "tar -czf dist/{target}.tgz -C dist/{target} .").run()?;
     }
-
 
     Ok(())
 }
