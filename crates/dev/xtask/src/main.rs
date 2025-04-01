@@ -1,3 +1,5 @@
+mod tools;
+
 use {
     clap::{Parser, Subcommand},
     xshell::{Shell, cmd},
@@ -43,7 +45,7 @@ fn main() -> anyhow::Result<()> {
             cmd!(sh, "taplo fmt").run()?;
             Ok(())
         }
-        SubCommands::InstallDevTools => install(),
+        SubCommands::InstallDevTools => tools::install(),
         SubCommands::Clean { dev_tools } => {
             let sh = new_shell()?;
             if dev_tools {
@@ -68,22 +70,6 @@ fn checks() -> anyhow::Result<()> {
     println!("Checking unit tests...");
     cmd!(sh, "cargo llvm-cov").run()?;
     cmd!(sh, "cargo llvm-cov report --lcov --output-path lcov.info").run()?;
-    Ok(())
-}
-
-fn install() -> anyhow::Result<()> {
-    let sh = new_shell()?;
-
-    println!("Creating .deps folder...");
-    sh.create_dir(".deps")?;
-
-    println!("Install cargo extensions...");
-    let tools = [
-        "cargo-llvm-cov@0.6.16", // Code coverage tool
-        "taplo-cli@0.9.3",       // `Even Better Toml`'s backend for formatting TOML
-    ];
-    cmd!(sh, "cargo install --root .deps {tools...}").run()?;
-
     Ok(())
 }
 
