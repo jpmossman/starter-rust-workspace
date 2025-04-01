@@ -6,8 +6,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/cache@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Cache
+      uses: actions/cache@v4
       with:
         path: |
           ~/.cargo/bin/
@@ -21,7 +24,9 @@ jobs:
           'crates/dev/xtask/src/tools.rs'
           ) }}
 
-    - run: rustup update
-    - run: cargo --version
-    - run: cargo x install-dev-tools
-    - run: cargo x check
+    - name: Build and test
+      run: |
+        rustup update
+        cargo --version
+        cargo x install-dev-tools
+        cargo x check
