@@ -76,3 +76,5 @@ TODO: Write longer explanation about why certain lint levels were chosen.
 - Explore additional cargo plugins for:
     - Unused dependencies (`cargo-udeps`)
     - Validating dependency licences (`cargo-deny`)
+
+test: update something to re-run CI
