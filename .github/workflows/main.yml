@@ -18,6 +18,8 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - uses: actions/checkout@v4
 
+    - run: pwd
+    - run: ls -la
     - run: ls -la ~/.cargo/bin/
     - run: ls -la target/
     # - run: rustup update
