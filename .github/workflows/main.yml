@@ -4,7 +4,18 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+          .deps/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - uses: actions/checkout@v4
     - run: rustup update
     - run: cargo --version
