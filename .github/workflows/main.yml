@@ -13,16 +13,18 @@ jobs:
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
-          ./target/
-          ./.deps/
+          target/
+          .deps/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock', crates/dev/xtask/src/main.rs) }}
     - uses: actions/checkout@v4
 
     - run: pwd
     - run: ls -la
     - run: ls -la ~/.cargo/bin/
-    - run: mkdir -p ./.deps/
-    - run: ls -la ./.deps/
+    - run: mkdir -p .deps/
+    - run: ls -la .deps/
+    - run: touch .deps/test.txt
+    - run: ls -la .deps/
     # - run: rustup update
     # - run: cargo --version
     # - run: cargo x install-dev-tools
