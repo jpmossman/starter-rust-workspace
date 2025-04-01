@@ -25,6 +25,7 @@ jobs:
     - run: ls -la .deps/
     - run: touch .deps/test.txt
     - run: ls -la ./.deps/
+    - run: echo ${{ hashFiles('Cargo.lock') }}
     # - run: rustup update
     # - run: cargo --version
     # - run: cargo x install-dev-tools
