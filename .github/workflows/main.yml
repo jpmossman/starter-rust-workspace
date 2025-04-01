@@ -18,7 +18,9 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - uses: actions/checkout@v4
 
-    - run: rustup update
-    - run: cargo --version
-    - run: cargo x install-dev-tools
-    - run: cargo x check
+    - run: ls -la ~/.cargo/bin/
+    - run: ls -la .deps/
+    # - run: rustup update
+    # - run: cargo --version
+    # - run: cargo x install-dev-tools
+    # - run: cargo x check
