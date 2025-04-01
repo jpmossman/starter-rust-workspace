@@ -6,4 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - run: rustup update
     - run: cargo --version
+    - run: cargo x check
